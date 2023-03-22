@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "resources-project"
+version = "0.1.0"
+description = ""
+authors = ["Vlad_Maximenko <106604188+Vlad2000102@users.noreply.github.com>"]
+readme = "README.md"
+packages = [{include = "resources_project"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+mysql-connector-python = "^8.0.32"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
