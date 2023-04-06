@@ -1,4 +1,5 @@
 import mysql.connector
+from typing import List
 
 
 class Database:
@@ -19,7 +20,8 @@ class Database:
         self.connection.commit()
         self.connection.close()
 
-    def select(self, *, table, select, where=None, group_by=None, join=None):
+    def select(self, *, table: str, select: str, where: str = None,
+               group_by: str = None, join: str = None) -> List[tuple]:
         query = f"""SELECT {select} FROM {table} a"""
         if join:
             query += f""" JOIN {join} b ON a.lux_name = b.lux_name"""
@@ -34,7 +36,7 @@ class Database:
         except mysql.connector.Error as e:
             print(e)
 
-    def insert(self, *, table, columns, values):
+    def insert(self, *, table: str, columns: str, values: str) -> None:
         query = f"""INSERT {table}({columns}) VALUES ({values})"""
         print(f'{query=}')
         try:
@@ -43,7 +45,7 @@ class Database:
         except mysql.connector.Error as e:
             print(e)
 
-    def update(self, *, table, values, where):
+    def update(self, *, table: str, values: str, where: str) -> None:
         query = f"""UPDATE {table} SET {values} WHERE {where}"""
         print(f'{query=}')
         try:
@@ -52,12 +54,8 @@ class Database:
         except mysql.connector.Error as e:
             print(e)
 
-    def delete(self, *, table, where):
+    def delete(self, *, table: str, where: str) -> None:
         query = f"""DELETE FROM {table} WHERE {where}"""
         print(f'{query=}')
         self.cursor.execute(query)
         self.connection.commit()
-
-
-if __name__ == "__main__":
-    print("Go out there!!!")

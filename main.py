@@ -34,7 +34,7 @@ class Luxury:
         self.warehouse_cost = round(self.warehouse_cost / coefficient_price, 3)
 
     @staticmethod
-    def calc_warehouse_cost(volume):
+    def calc_warehouse_cost(volume: int) -> int:
         x = ceil(sqrt(2 * volume) / 100)
         return 10000 * round(41.6666666 * x ** 3 - 62.5 * x ** 2 + 20.8333333 * x)
 
