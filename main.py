@@ -40,7 +40,7 @@ class Luxury:
 
 
 if __name__ == '__main__':
-    db = Database()
+    db = Database(user_password='root')
     lst = db.select(
         table='auctions',
         select='a.lux_name, sum(bid_value), sum(points), count(a.lux_name), item_price',
