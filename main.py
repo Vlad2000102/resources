@@ -40,12 +40,14 @@ class Luxury:
 
 
 if __name__ == '__main__':
-    db = Database()
+    db = Database(user_password='root')
     lst = db.select(
         table='auctions',
         select='a.lux_name, sum(bid_value), sum(points), count(a.lux_name), item_price',
+        where='bid_value IS NOT NULL AND points IS NOT NULL',
         join='items',
         group_by='lux_name')
+    # dct:: lux_name: (avg_bid, avg_points)
     dct = {row[0]: (round(row[1]/row[3]), round(row[2]/row[3]), row[4]) for row in lst}
     luxuries = []
     for lux_name, properties in dct.items():
