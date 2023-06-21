@@ -1,6 +1,7 @@
 from Database import Database
 from dataclasses import dataclass, field
 from math import ceil, sqrt
+from typing import Tuple
 
 
 @dataclass
@@ -17,7 +18,7 @@ class Luxury:
 
     def __post_init__(self):
         if self.lux_name != 'Painting':
-            self.warehouse_cost = Luxury.calc_warehouse_cost(self.bid_value)
+            self.warehouse_cost = Luxury.calc_warehouse_cost(Luxury.calc_warehouse_level(self.bid_value))
             bid_price = self.item_price * self.bid_value * 1.05
         else:
             self.warehouse_cost = 0
@@ -34,9 +35,19 @@ class Luxury:
         self.warehouse_cost = round(self.warehouse_cost / coefficient_price, 3)
 
     @staticmethod
-    def calc_warehouse_cost(volume: int) -> int:
-        x = ceil(sqrt(2 * volume) / 100)
-        return 10000 * round(41.6666666 * x ** 3 - 62.5 * x ** 2 + 20.8333333 * x)
+    def calc_warehouse_level(volume: int) -> int:
+        """returns warehouse level based on required volume"""
+        return ceil(sqrt(2 * volume) / 100)
+
+    @staticmethod
+    def calc_warehouse_cost(req_lvl: int, start_lvl: int = 0) -> int:
+        """returns warehouse cost based on level"""
+        calc = lambda x: 10000 * round(41.6666666 * x ** 3 - 62.5 * x ** 2 + 20.8333333 * x)
+        cost = calc(req_lvl)
+        if start_lvl:
+            obtained_cost = calc(start_lvl)
+            cost -= obtained_cost
+        return cost if cost >= 0 else 0
 
 
 if __name__ == '__main__':

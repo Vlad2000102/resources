@@ -3,3 +3,4 @@
 venv
 poetry.lock
 __pycache__
+deleteit.py
