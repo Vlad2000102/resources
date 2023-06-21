@@ -68,6 +68,7 @@ if __name__ == '__main__':
         db.update(
             table='luxuries',
             values=f'points = {x.points}, price_x1 = {x.price_x1}, price_x10 = {x.price_x10}, '
-                   f'ppp_x1 = {x.ppp_x1}, ppp_x10 = {x.ppp_x10}, warehouse_cost = {x.warehouse_cost}',
+                   f'ppp_x1 = {x.ppp_x1}, ppp_x10 = {x.ppp_x10}, warehouse_cost = {x.warehouse_cost},'
+                   f'avg_bid = {x.bid_value}',
             where=f'lux_name = "{x.lux_name}"'
         )
