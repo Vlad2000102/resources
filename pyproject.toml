@@ -9,6 +9,7 @@ packages = [{include = "resources_project"}]
 [tool.poetry.dependencies]
 python = "^3.9"
 mysql-connector-python = "^8.0.32"
+requests = "^2.31.0"
 
 
 [build-system]
